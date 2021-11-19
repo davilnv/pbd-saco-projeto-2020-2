@@ -2,7 +2,7 @@ from django.db import models
 from uuid import uuid4
 
 def upload_image(instance, filename):
-    return f"{instance.id_book}-{filename}"
+    return f"{instance.codfuncionario}-{filename}"
 
 class AuthGroup(models.Model):
     name = models.CharField(unique=True, max_length=150)
