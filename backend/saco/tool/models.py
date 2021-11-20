@@ -1,8 +1,11 @@
 from django.db import models
 from uuid import uuid4
 
-def upload_image(instance, filename):
+def upload_image_funcionario(instance, filename):
     return f"{instance.codfuncionario}-{filename}"
+
+def upload_image_empresa(instance, filename):
+    return f"{instance.codempresa}-{filename}"
 
 class AuthGroup(models.Model):
     name = models.CharField(unique=True, max_length=150)
@@ -148,7 +151,7 @@ class Empresa(models.Model):
     cnpj = models.BigIntegerField(db_column='CNPJ', unique=True)  # Field name made lowercase.
     razaosocial = models.CharField(db_column='RAZAOSOCIAL', max_length=255)  # Field name made lowercase.
     codendereco = models.BigIntegerField(db_column='CODENDERECO')  # Field name made lowercase.
-    logoempresa = models.CharField(db_column='LOGOEMPRESA', max_length=255)  # Field name made lowercase.
+    logoempresa = models.ImageField(upload_to=upload_image_empresa)
 
     class Meta:
         managed = False
@@ -180,7 +183,8 @@ class Funcionario(models.Model):
     dataadmissao = models.DateField(db_column='DATAADMISSAO')  # Field name made lowercase.
     salario = models.FloatField(db_column='SALARIO')  # Field name made lowercase.
     especialidade = models.CharField(db_column='ESPECIALIDADE', max_length=100)  # Field name made lowercase.
-    foto = models.CharField(db_column='FOTO', max_length=255, blank=True, null=True)  # Field name made lowercase.
+    #foto = models.CharField(db_column='FOTO', max_length=255, blank=True, null=True)  # Field name made lowercase.
+    foto = models.ImageField(upload_to=upload_image_funcionario)
 
     class Meta:
         managed = False
